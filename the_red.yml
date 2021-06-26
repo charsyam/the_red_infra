@@ -1,0 +1,52 @@
+---
+- name: Configure users on all servers
+  hosts: all
+  become: yes
+
+  roles:
+     - { role: base, tags: [ 'base' ] }
+     - { role: docker, tags: [ 'docker' ] }
+     - { role: locust, tags: [ 'locust' ] }
+     - { role: prometheus_node_exporter, tags: [ 'prometheus_node_exporter' ] }
+     - { role: prometheus_node_exporter, tags: [ 'prometheus_node_exporter' ] }
+
+- name: Install JVM tools with sdkman
+  hosts: all
+  roles:
+    - role: comcast.sdkman
+      sdkman_user: ubuntu
+      sdkman_group: ubuntu
+      sdkman_auto_answer: true
+      sdkman_update: true
+
+      sdkman_install_packages:
+        - { candidate: java, version: 11.0.11.9.1-amzn }
+        - { candidate: scala, version: 2.13.5 }
+        - { candidate: kotlin, version: 1.5.0 }
+        - { candidate: sbt, version: 1.5.2 }
+        - { candidate: maven, version: 3.8.1 }
+        - { candidate: gradle, version: 7.0.1 }
+
+      tags:
+        - jvm
+
+- name: Configure ngrinder
+  hosts: ngrinder
+  become: yes
+
+  roles:
+     - { role: ngrinder, tags: [ 'ngrinder' ] }
+
+- name: Install Prometheus
+  hosts: prometheus
+  become: yes
+
+  roles:
+     - { role: prometheus, tags: [ 'prometheus' ] }
+
+- name: Install Grafana
+  hosts: grafana
+  become: yes
+
+  roles:
+     - { role: grafana, tags: [ 'grafana' ] }
