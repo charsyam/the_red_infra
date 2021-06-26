@@ -1,0 +1,3 @@
+---
+ngrinder_controller_image: "ngrinder/controller:3.4"
+ngrinder_agent_image: "ngrinder/agent:3.4"

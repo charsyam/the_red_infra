@@ -1,0 +1,6 @@
+---
+- name: install locust
+  pip:
+    name:
+        - locust
+    executable: pip3

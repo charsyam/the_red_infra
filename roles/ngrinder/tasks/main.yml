@@ -1,0 +1,23 @@
+---
+- name: Run ngrinder controller
+  docker_container:
+    name: ngrinder-controller
+    image: "{{ ngrinder_controller_image }}"
+    state: started
+    ports:
+     - "8080:80"
+     - "16001:16001"
+     - "12000-12009:12000-12009"
+    volumes:
+     - "~/ngrinder-controller:/opt/ngrinder-controller"
+  when: hostvars[inventory_hostname]['ngrinder_master_addr'] is undefined
+
+- name: Run ngrinder agents
+  docker_container:
+    name: ngrinder-agents 
+    image: "{{ ngrinder_agent_image }}"
+    state: started
+    volumes:
+     - "~/ngrinder-agent:/opt/ngrinder-agent"
+    command: "{{ hostvars[inventory_hostname]['ngrinder_master_addr'] }}"
+  when: hostvars[inventory_hostname]['ngrinder_master_addr'] is defined

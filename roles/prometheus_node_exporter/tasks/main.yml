@@ -1,0 +1,12 @@
+---
+- name: Run prometheus node exporter
+  docker_container:
+    name: node_exporter
+    image: "{{ node_exporter_image }}"
+    state: started
+    network_mode: "host"
+    pid_mode: "host"
+    restart_policy: unless-stopped
+    command: '--path.rootfs=/host'
+    volumes:
+      - "/:/host:ro,rslave"

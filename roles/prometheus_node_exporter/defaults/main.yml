@@ -1,0 +1,2 @@
+---
+node_exporter_image: quay.io/prometheus/node-exporter:latest

@@ -1,0 +1,7 @@
+---
+- name: Install Grafana
+  hosts: grafana
+  become: yes
+
+  roles:
+     - { role: grafana, tags: [ 'grafana' ] }

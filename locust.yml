@@ -1,0 +1,7 @@
+---
+- name: Configure users on all servers
+  hosts: all
+  become: yes
+
+  roles:
+     - { role: locust, tags: [ 'locust' ] }

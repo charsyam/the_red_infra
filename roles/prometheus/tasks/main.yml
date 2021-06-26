@@ -1,0 +1,26 @@
+---
+- name: Creates directory
+  file:
+    path: /home/ubuntu/prometheus
+    state: directory
+    owner: ubuntu
+    mode: 0777
+
+- name: copy prometheus config
+  become: true
+  template:
+    src=templates/prometheus.yml.j2
+    dest=/home/ubuntu/prometheus.yml
+    mode=0777
+
+- name: Run prometheus
+  docker_container:
+    name: prometheus
+    image: "{{ prometheus_image }}"
+    recreate: yes
+    state: started
+    ports:
+     - "9090:9090"
+    volumes:
+     - "/home/ubuntu/prometheus.yml:/etc/prometheus/prometheus.yml"
+     - "/home/ubuntu/prometheus:/prometheus"

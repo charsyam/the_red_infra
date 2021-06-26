@@ -1,0 +1,6 @@
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+scrape_configs:
+  - job_name: 'node_exporter'
+    static_configs:
+    - targets: ['172.31.27.61:9100', '172.31.29.134:9100', '172.31.17.254:9100']

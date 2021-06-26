@@ -1,0 +1,19 @@
+---
+- name: Install docker
+  become: true
+  shell: curl https://get.docker.com | sh
+
+- name: Modify privilege
+  become: true
+  shell: usermod -aG docker {{ docker_default_user }}
+
+- name: Change privilege of docker
+  become: true
+  file: dest=/usr/bin/docker mode=+x
+
+- name: python docker / docker-compse module
+  pip:
+    name:
+        - docker
+        - docker-compose
+    executable: pip3

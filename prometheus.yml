@@ -1,0 +1,7 @@
+---
+- name: Install Prometheus
+  hosts: prometheus
+  become: yes
+
+  roles:
+     - { role: prometheus, tags: [ 'prometheus' ] }
