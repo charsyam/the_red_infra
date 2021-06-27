@@ -1,8 +1,0 @@
----
-- name: Configure users on all servers
-  hosts: ngrinder
-  become: yes
-
-  roles:
-     - { role: base, tags: [ 'base' ] }
-     - { role: docker, tags: [ 'docker' ] }

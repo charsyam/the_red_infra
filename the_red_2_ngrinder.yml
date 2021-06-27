@@ -1,0 +1,11 @@
+---
+- name: Configure users on all servers
+  hosts: ngrinder
+  become: yes
+
+- name: Configure ngrinder
+  hosts: ngrinder
+  become: yes
+
+  roles:
+     - { role: ngrinder, tags: [ 'ngrinder' ] }

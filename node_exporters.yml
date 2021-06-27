@@ -1,7 +1,0 @@
----
-- name: Install Prometheus Node Exporter
-  hosts: all
-  become: yes
-
-  roles:
-     - { role: prometheus_node_exporter, tags: [ 'prometheus_node_exporter' ] }
