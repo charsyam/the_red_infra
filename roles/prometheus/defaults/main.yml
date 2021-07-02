@@ -1,2 +1,21 @@
 ---
 prometheus_image: prom/prometheus
+nodes: 
+  - '172.31.51.179:9100'
+  - '172.31.58.222:9100'
+  - '172.31.56.70:9100'
+
+geoip_nodes:
+  - '172.31.58.222:7001'
+  - '172.31.56.70:7001'
+
+prometheus_scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+    - targets: ['172.31.51.179:9090']
+  - job_name: 'node_exporter'
+    static_configs:
+    - targets: "{{ nodes }}"
+  - job_name: 'geoip_exporter'
+    static_configs:
+    - targets: "{{ geoip_nodes }}"

@@ -1,1 +1,1 @@
-https://grafana.com/grafana/dashboards/11074
+node-dashboard: https://grafana.com/grafana/dashboards/11074

@@ -8,7 +8,6 @@
      - { role: docker, tags: [ 'docker' ] }
      - { role: locust, tags: [ 'locust' ] }
      - { role: prometheus_node_exporter, tags: [ 'prometheus_node_exporter' ] }
-     - { role: prometheus_node_exporter, tags: [ 'prometheus_node_exporter' ] }
 
 - name: Install JVM tools with sdkman
   hosts: all
@@ -29,13 +28,6 @@
 
       tags:
         - jvm
-
-- name: Configure ngrinder
-  hosts: ngrinder
-  become: yes
-
-  roles:
-     - { role: ngrinder, tags: [ 'ngrinder' ] }
 
 - name: Install Prometheus
   hosts: prometheus
