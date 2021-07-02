@@ -1,0 +1,23 @@
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+PIDFile=/home/ubuntu/geoip/fastapi/pid
+User=ubuntu
+Group=ubuntu
+WorkingDirectory={{ geoip_path }}
+ExecStart={{ gunicorn_path }}/gunicorn \
+        -k uvicorn.workers.UvicornWorker \
+        --pid {{ geoip_path }}pid \
+        --workers 1 \
+        --bind 0.0.0.0:{{ geoip_port }} \
+        {{geoip_app_name}}:app \
+        --access-logfile {{ geoip_path }}logs/gunicorn-access.log \
+        --error-logfile {{ geoip_path }}logs/gunicorn-error.log
+
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,9 @@
+---
+- name: install python using pyenv
+  become: true
+  shell: "source {{ pyenv_runcom }} && CFLAGS=\"-I/usr/bin/openssl\" LDFLAGS=\"-L/usr/lib\" {{ pyenv_root }}/bin/pyenv install {{ version }}"
+  register: install_python_result
+  failed_when: install_python_result.rc != 0
+  changed_when: install_python_result.rc == 0
+  args:
+    executable: /bin/bash

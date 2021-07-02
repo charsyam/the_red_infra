@@ -1,0 +1,68 @@
+- name: Check installed pyenv
+  stat:
+    path: "{{ pyenv_root }}/bin/pyenv"
+  register: pyenv_stat
+
+- set_fact:
+    pyenv_present: "{{ pyenv_stat.stat.exists and pyenv_stat.stat.executable }}"
+
+- name: Install pyenv
+  git:
+    repo: "https://github.com/yyuu/pyenv.git"
+    dest: "{{ pyenv_root }}"
+  when: not pyenv_present
+
+- name: Install virtualenv
+  git:
+    repo: https://github.com/yyuu/{{ item }}.git
+    dest:  "{{ pyenv_root }}/plugins/{{ item }}"
+  with_items:
+    - pyenv-virtualenv
+  when: not pyenv_present and pyenv_virtualenv
+
+- name: Change permission pyenv
+  file:
+    path: "{{ pyenv_root }}"
+    state: directory
+    recurse: yes
+    mode: 0777
+
+- name: Add to run commands
+  template:
+    src: pyenv.sh.j2
+    dest: "{{ pyenv_runcom }}"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: list installed python versions
+  become: true
+  shell: "source {{ pyenv_runcom }} && {{ pyenv_root }}/bin/pyenv versions --bare"
+  register: pyenv_installed_versions
+  check_mode: no
+  changed_when: false
+  args:
+    executable: /bin/bash
+
+- name: install python version using pyenv
+  become: true
+  include: install-python.yml
+  when: pyenv_installed_versions is defined and version not in pyenv_installed_versions.stdout_lines
+  with_items: "{{ pyenv_versions }}"
+  loop_control:
+    loop_var: version
+
+- name: list existing virtualenvs
+  shell: "source {{ pyenv_runcom }} && {{ pyenv_root }}/bin/pyenv virtualenvs --bare"
+  check_mode: no
+  register: installed_venvs
+  changed_when: false
+  args:
+    executable: /bin/bash
+
+- name: desired virtualenvs are in place
+  include: install-virtualenvs.yml
+  when: installed_venvs is defined and venv.name not in installed_venvs.stdout_lines
+  with_items: "{{ pyenv_virtualenvs }}"
+  loop_control:
+    loop_var: venv

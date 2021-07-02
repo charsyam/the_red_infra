@@ -1,0 +1,13 @@
+---
+pyenv_root: /usr/local/pyenv
+
+pyenv_runcom: /etc/profile.d/pyenv.sh
+
+pyenv_versions:
+  - 3.8.6
+
+pyenv_default_version: 3.8.6
+
+pyenv_virtualenvs: []
+
+pyenv_virtualenv: true

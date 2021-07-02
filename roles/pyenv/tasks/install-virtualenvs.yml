@@ -1,0 +1,13 @@
+---
+- name: virtualenv installed
+  shell: |
+    source {{ pyenv_runcom }} &&
+    {{ pyenv_root }}/bin/pyenv virtualenv {{ venv.python_version }} {{ venv.name }}
+  args:
+    executable: /bin/bash
+
+- name: Install required packages into virtualenv
+  pip:
+    name: "{{ item }}"
+    executable: "{{ pyenv_root }}/versions/{{ venv.name }}/bin/pip"
+  with_items: "{{ venv.packages | default([]) }}"

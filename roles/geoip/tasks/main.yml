@@ -1,0 +1,39 @@
+- name: Git checkout
+  become: no
+  git:
+    repo: 'https://github.com/charsyam/geoip.git'
+    dest: /home/ubuntu/geoip
+    clone: yes
+    update: yes
+
+- name: Install gunicorn
+  pip:
+    name: gunicorn
+    state: present
+    executable: /usr/local/pyenv/versions/3.8.6/bin/pip3
+
+- name: Install specified python requirements in indicated (virtualenv)
+  pip:
+    requirements: /home/ubuntu/geoip/requirements.txt
+    executable: /usr/local/pyenv/versions/3.8.6/bin/pip3
+
+- name: Create Log Folder
+  file:
+    path: /home/ubuntu/geoip/fastapi/logs
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+  
+- name: Add to run commands
+  template:
+    src: gunicorn_geoip.service.j2
+    dest: "/etc/systemd/system/gunicorn_geoip.service"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Restart gunicorn
+  service:
+    name: gunicorn_geoip.service
+    state: restarted
+    daemon_reload: yes

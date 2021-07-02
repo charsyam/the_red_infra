@@ -1,0 +1,3 @@
+default_pyenv_root: "/usr/local/pyenv"
+pyenv_default_version: "3.8.6"
+default_gunicorn_path: "/usr/local/pyenv/versions/{{pyenv_default_version}}/bin"

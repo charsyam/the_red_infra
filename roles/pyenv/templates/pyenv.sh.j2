@@ -1,0 +1,12 @@
+export PYENV_ROOT=/usr/local/pyenv
+if [ -f $HOME/.pyenv/bin/pyenv ]; then
+  export PYENV_ROOT=$HOME/.pyenv
+fi
+# path
+export PATH=$PYENV_ROOT/bin:$PATH
+if which pyenv > /dev/null; then
+  eval "$(pyenv init --path)"
+{% if pyenv_virtualenv is defined and pyenv_virtualenv %}
+  eval "$(pyenv virtualenv-init -)"
+{% endif %}
+fi # pyenv
