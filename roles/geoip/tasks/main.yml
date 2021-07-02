@@ -37,3 +37,10 @@
     name: gunicorn_geoip.service
     state: restarted
     daemon_reload: yes
+
+- name: Check Gunicorn
+  command: systemctl is-active gunicorn_geoip
+  changed_when: false
+
+- name: verify geoip is listening on 7001
+  wait_for: port=7001 timeout=1
