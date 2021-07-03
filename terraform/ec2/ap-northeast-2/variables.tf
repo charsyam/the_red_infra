@@ -13,19 +13,23 @@ variable "num" {
   default     = 3
 }
 
+variable "availability_zone" {
+  default     = "ap-northeast-2a"
+}
+
 variable "instance_type" {
   description = "Instance Type"
-  default     = "t3.small"
+  default     = "t3a.small"
 }
 
 variable "root_volume_size" {
   description = "Specify the root volume size"
-  default     = "40"
+  default     = "30"
 }
 
 variable "root_volume_type" {
   description = "Specify the root volume type. Masters MUST have at least gp2"
-  default     = "gp2"
+  default     = "gp3"
 }
 
 variable "extra_volumes" {

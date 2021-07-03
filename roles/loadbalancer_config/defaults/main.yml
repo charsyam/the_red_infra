@@ -1,0 +1,6 @@
+---
+lb_port: 80
+backends:
+  - host2:7001
+  - host3:7001
+lb_config_name: geoip

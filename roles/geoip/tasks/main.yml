@@ -32,8 +32,13 @@
     group: root
     mode: 0644
 
+- name: Enable gunicorn
+  systemd:
+    name: gunicorn_geoip.service
+    enabled: yes
+
 - name: Restart gunicorn
-  service:
+  systemd:
     name: gunicorn_geoip.service
     state: restarted
     daemon_reload: yes

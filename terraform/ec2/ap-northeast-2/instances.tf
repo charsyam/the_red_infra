@@ -8,6 +8,7 @@ resource "aws_spot_instance_request" "instance" {
   vpc_security_group_ids      = "${var.security_group_ids}"
   iam_instance_profile        = "${var.iam_instance_profile}"
   key_name                    = "${var.key_name}"
+  availability_zone           = "${var.availability_zone}"
 
   root_block_device {
     volume_size           = "${var.root_volume_size}"

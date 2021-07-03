@@ -1,0 +1,19 @@
+- name: Install Nginx
+  become: true
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - nginx
+
+- name: Delete default config /etc/nginx/sites-enabled/default
+  become: true
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Delete default config /etc/nginx/sites-available/default
+  become: true
+  file:
+    path: /etc/nginx/sites-available/default
+    state: absent
