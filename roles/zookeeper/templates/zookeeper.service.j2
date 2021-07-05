@@ -1,0 +1,19 @@
+[Unit]
+Description=ZooKeeper
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User={{ zookeeper_owner }}
+Group={{ zookeeper_owner }}
+Environment=JAVA_HOME={{ java_home }}
+Environment=SERVER_JVMFLAGS=-Djava.net.preferIPv4Stack=true
+ExecStart={{zookeeper_executable_dir}}/bin/zkServer.sh start-foreground {{ zookeeper_conf_path }}
+Restart=always
+RestartSec=3
+
+TimeoutSec=300
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,23 @@
+---
+zookeeper_enabled: True
+zookeeper_version: 3.6.3
+client_port: 2181
+init_limit: 5
+sync_limit: 2
+tick_time: 2000
+data_dir: /var/lib/zookeeper
+
+java_home: /home/ubuntu/.sdkman/candidates/java/current
+zookeeper_default_quorumport: 2888
+zookeeper_default_leaderport: 3888
+
+zookeeper_conf_dir: /etc/zookeeper/conf
+zookeeper_conf_filename: zoo.cfg
+zookeeper_conf_path: "{{ zookeeper_conf_dir }}/{{ zookeeper_conf_filename }}"
+zookeeper_build_dir: /tmp/zookeeper
+zookeeper_install_dir: /usr/local
+zookeeper_folder: "apache-zookeeper-{{ zookeeper_version }}-bin"
+zookeeper_executable_dir: "{{ zookeeper_install_dir }}/{{ zookeeper_folder }}"
+zookeeper_file: "{{ zookeeper_folder }}.tar.gz"
+zookeeper_url: "https://archive.apache.org/dist/zookeeper/zookeeper-{{ zookeeper_version }}/{{ zookeeper_file }}"
+zookeeper_owner: root

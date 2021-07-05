@@ -1,0 +1,82 @@
+- name: install - create build directory
+  become: true
+  file:
+    state=directory
+    path={{ zookeeper_build_dir }}
+
+- name: install - create conf directory
+  become: true
+  file:
+    state=directory
+    path={{ zookeeper_conf_dir }}
+
+- name: install - apache zookeeper
+  become: true
+  get_url:
+    url={{ zookeeper_url }}
+    dest={{ zookeeper_build_dir }}/{{ zookeeper_file }}
+
+- name: install - extract to installation location
+  become: true
+  unarchive:
+    src={{ zookeeper_build_dir }}/{{ zookeeper_file }}
+    dest={{ zookeeper_install_dir }}
+    copy=no
+    creates={{ zookeeper_install_dir }}/zookeeper
+    owner={{ zookeeper_owner }}
+    group={{ zookeeper_owner }}
+    mode=0755
+
+- name: Create data directory if not exists
+  become: true
+  file:
+    path={{ data_dir }}
+    state=directory
+    owner={{ zookeeper_owner }}
+    group={{ zookeeper_owner }}
+    mode=0755
+
+- name: Set zookeeper myid
+  become: true
+  copy:
+    dest: "{{ data_dir }}/myid"
+    content: "{{ myid }}"
+    owner: "{{ zookeeper_owner }}"
+    group: "{{ zookeeper_owner }}"
+    mode: 0644
+
+- name: Install zoo.cfg file
+  become: true
+  template:
+    dest: "{{ zookeeper_conf_path }}"
+    src: zoo.cfg.j2
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Set JAVA_HOME
+  become: true
+  lineinfile:
+    dest: /etc/environment
+    state: present
+    regexp: '^JAVA_HOME'
+    line: 'JAVA_HOME={{ java_home }}'
+
+- name: systemd script.
+  become: true
+  template:
+    src: zookeeper.service.j2
+    dest: /etc/systemd/system/zookeeper.service
+
+- name: Enable zookeeper
+  become: True
+  systemd:
+    name: zookeeper
+    enabled: yes
+
+- name: Restart zookeeper
+  become: True
+  systemd:
+    name: zookeeper
+    state: restarted
+    daemon_reload: yes

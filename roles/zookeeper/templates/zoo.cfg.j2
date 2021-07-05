@@ -1,0 +1,10 @@
+clientPort={{ client_port }}
+initLimit={{ init_limit }}
+syncLimit={{ sync_limit }}
+tickTime={{ tick_time }}
+dataDir={{ data_dir }}
+
+{% for server in groups["zookeeper"] %}
+{% set host = hostvars[server] %}
+server.{{ host.myid }}={{ host.internal_ip }}:{{ zookeeper_default_quorumport }}:{{ zookeeper_default_leaderport }}
+{% endfor %}
