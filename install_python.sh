@@ -13,7 +13,7 @@ if [ -z "$install_python_version" ]; then
     echo "   1-1) INSTALLING PYTHON $PYTHON_VERSION"
     pyenv install $PYTHON_VERSION
     pyenv shell $PYTHON_VERSION
-    easy_install -U setuptools
+    pip install --upgrade pip
     pip install virtualenv
 else
     echo "   1-1) INSTALLING PYTHON $PYTHON_VERSION (DONE)"
