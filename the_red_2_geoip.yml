@@ -1,15 +1,4 @@
 ---
-- name: Configure users on all servers
-  hosts: all
-  become: yes
-
-  roles:
-     - { role: base, tags: [ 'base' ] }
-     - { role: docker, tags: [ 'docker' ] }
-     - { role: locust, tags: [ 'locust' ] }
-     - { role: pyenv, tags: [ 'pyenv' ] }
-     - { role: prometheus_node_exporter, tags: [ 'prometheus_node_exporter' ] }
-
 - name: Install GeoIP
   hosts: geoip
   become: yes
