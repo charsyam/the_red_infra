@@ -10,7 +10,7 @@ variable "ami" {
 
 variable "num" {
   description = "How many instances should be created"
-  default     = 3
+  default     = 1
 }
 
 variable "availability_zone" {
