@@ -13,8 +13,6 @@ if [ -z "$install_python_version" ]; then
     echo "   1-1) INSTALLING PYTHON $PYTHON_VERSION"
     pyenv install $PYTHON_VERSION
     pyenv shell $PYTHON_VERSION
-    pip install --upgrade pip
-    pip install virtualenv
 else
     echo "   1-1) INSTALLING PYTHON $PYTHON_VERSION (DONE)"
 fi
@@ -31,3 +29,4 @@ echo "   2) use $VIRTUAL_ENV"
 
 pyenv local $VIRTUAL_ENV
 pyenv rehash
+pip install --upgrade pip
