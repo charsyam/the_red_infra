@@ -1,6 +1,5 @@
 ---
 lb_port: 80
-backends:
-  - host2:7001
-  - host3:7001
+geoip_port: 7001
+backends: "localhost:{{geoip_port}}"
 lb_config_name: geoip

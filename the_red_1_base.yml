@@ -8,6 +8,7 @@
      - { role: docker, tags: [ 'docker' ] }
      - { role: locust, tags: [ 'locust' ] }
      - { role: prometheus_node_exporter, tags: [ 'prometheus_node_exporter' ] }
+     - { role: pyenv, tags: [ 'pyenv' ] }
 
 - name: Install JVM tools with sdkman
   hosts: all

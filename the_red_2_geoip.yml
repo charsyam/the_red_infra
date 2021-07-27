@@ -12,10 +12,3 @@
 
   roles:
      - { role: nginx, tags: [ 'nginx' ] }
-
-- name: setup loadbalancer
-  hosts: geoip
-  become: yes
-
-  roles:
-     - { role: loadbalancer_config, tags: [ 'loadbalancer_config' ] }

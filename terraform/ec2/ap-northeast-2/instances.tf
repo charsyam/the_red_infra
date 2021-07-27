@@ -5,7 +5,7 @@ resource "aws_spot_instance_request" "instance" {
 
   count                       = "${var.num}"
   associate_public_ip_address = "${var.associate_public_ip_address}"
-  vpc_security_group_ids      = "${var.security_group_ids}"
+  vpc_security_group_ids      = ["${aws_security_group.allow_the_red.id}"]
   iam_instance_profile        = "${var.iam_instance_profile}"
   key_name                    = "${var.key_name}"
   availability_zone           = "${var.availability_zone}"

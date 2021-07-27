@@ -1,0 +1,9 @@
+---
+- name: setup loadbalancer
+  hosts: geoip
+  become: yes
+
+  vars:
+     geoip_port: 7002
+  roles:
+     - { role: loadbalancer_config, tags: [ 'loadbalancer_config' ] }

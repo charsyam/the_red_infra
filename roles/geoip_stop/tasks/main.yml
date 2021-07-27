@@ -1,0 +1,9 @@
+- name: Stop Geoip Gunicorn
+  systemd:
+    name: "gunicorn_geoip_{{geoip_port}}.service"
+    state: stopped
+
+- name: Check Gunicorn
+  command: systemctl is-active "gunicorn_geoip_{{geoip_port}}.service"
+  register: check_gunicorn
+  failed_when: check_gunicorn.stdout != "inactive" 

@@ -3,6 +3,14 @@ variable "region" {
   default     = "ap-northeast-2"
 }
 
+variable "vpc_cidr_block" {
+  default = "172.31.0.0/16"
+}
+
+variable "use_default" {
+  default = true
+}
+
 variable "ami" {
   description = "AMI that will be used for the instance"
   default     = "ami-04876f29fd3a5e8ba"
@@ -10,7 +18,7 @@ variable "ami" {
 
 variable "num" {
   description = "How many instances should be created"
-  default     = 3
+  default     = 1
 }
 
 variable "availability_zone" {

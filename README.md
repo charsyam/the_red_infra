@@ -20,5 +20,20 @@ libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
 	./install_pyenv.sh
 	source ~/.bashrc
 	./install_python.sh
+    install_ansible_password.sh    
 	install_terraform.sh	
+```
+
+build aws 
+```
+    cd terraform/ec2/ap-northeast-2
+    terraform init
+    terraform plan -out "output"
+    terraform apply "output"
+```
+
+apply ansible
+```
+    ansible-playbook -i aws the_red_1_base.yml
+    ansible-playbook -i aws the_red_2_geoip.yml
 ```

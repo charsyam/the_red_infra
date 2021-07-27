@@ -1,5 +1,6 @@
 ---
 gunicorn_path: "{{ default_gunicorn_path }}"
-geoip_path: "/home/ubuntu/geoip/fastapi/"
 geoip_app_name: "main"
-geoip_port: 7001
+geoip_port: 7002
+worker_number: 8
+geoip_path: "/home/ubuntu/geoip_{{ geoip_port }}/fastapi/"
