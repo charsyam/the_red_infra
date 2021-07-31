@@ -20,16 +20,20 @@ output "subnet_ids" {
 
 output "instances" {
   description = "List of instance IDs"
-  value       = ["${aws_spot_instance_request.instance.*.spot_instance_id}"]
+  value       = ["${aws_spot_instance_request.instances.*.spot_instance_id}"]
 }
 
 output "public_ips" {
   description = "List of public ip addresses created by this module"
-  value       = ["${aws_spot_instance_request.instance.*.public_ip}"]
+  value       = ["${aws_spot_instance_request.instances.*.public_ip}"]
 }
 
 output "private_ips" {
   description = "List of private ip addresses created by this module"
-  value       = ["${aws_spot_instance_request.instance.*.private_ip}"]
+  value       = ["${aws_spot_instance_request.instances.*.private_ip}"]
 }
 
+output "geoip_lb_dnsname" {
+  description = "aws geoip lb dnsname"
+  value       = "${aws_lb.geoip_lb.dns_name}"
+}

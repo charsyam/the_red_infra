@@ -1,7 +1,7 @@
-resource "aws_spot_instance_request" "instance" {
+resource "aws_spot_instance_request" "instances" {
   instance_type = "${var.instance_type}"
-  //ami           = "${var.ami}"
-  ami           = "ami-04876f29fd3a5e8ba"
+  ami           = "${var.ami}"
+  //ami           = "ami-04876f29fd3a5e8ba"
 
   count                       = "${var.num}"
   associate_public_ip_address = "${var.associate_public_ip_address}"
@@ -25,4 +25,12 @@ resource "aws_spot_instance_request" "instance" {
   timeouts {
     create = "20m"
   }
+}
+
+//from terraform 0.12.x
+resource "aws_lb_target_group_attachment" "geoip_attachement" {
+  count            = length(aws_spot_instance_request.instances)
+  target_group_arn = aws_lb_target_group.geoip_lb_target_group.arn
+  target_id        = aws_spot_instance_request.instances[count.index].spot_instance_id
+  port             = "${var.geoip_port}"
 }

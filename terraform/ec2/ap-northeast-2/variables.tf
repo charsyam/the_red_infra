@@ -7,6 +7,10 @@ variable "vpc_cidr_block" {
   default = "172.31.0.0/16"
 }
 
+variable "my_ip" {
+  default = "125.186.212.83/32"
+}
+
 variable "use_default" {
   default = true
 }
@@ -18,7 +22,7 @@ variable "ami" {
 
 variable "num" {
   description = "How many instances should be created"
-  default     = 1
+  default     = 2
 }
 
 variable "availability_zone" {
@@ -75,4 +79,8 @@ variable "hostname_format" {
 variable "extra_volume_name_format" {
   description = "Printf style format for naming the extra volumes. Inputs are cluster_name and instance ID."
   default     = "extra-volumes-%s-%s"
+}
+
+variable "geoip_port" {
+  default     = 7002
 }
