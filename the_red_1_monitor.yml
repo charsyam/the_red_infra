@@ -1,0 +1,14 @@
+---
+- name: Install Prometheus
+  hosts: prometheus
+  become: yes
+
+  roles:
+     - { role: prometheus, tags: [ 'prometheus' ] }
+
+- name: Install Grafana
+  hosts: grafana
+  become: yes
+
+  roles:
+     - { role: grafana, tags: [ 'grafana' ] }

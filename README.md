@@ -32,8 +32,21 @@ build aws
     terraform apply "output"
 ```
 
-apply ansible
+apply ansible: geoip
 ```
     ansible-playbook -i aws the_red_1_base.yml
     ansible-playbook -i aws the_red_2_geoip.yml
+    ansible-playbook -i aws the_red_2_lb.yml
+```
+
+apply ansible: monitor(prometheus + grafana)
+```
+    ansible-playbook -i aws the_red_1_base.yml
+    ansible-playbook -i aws the_red_2_monitor.yml
+```
+
+apply ansible: ngrinder
+```
+    ansible-playbook -i aws the_red_1_jvm.yml
+    ansible-playbook -i aws the_red_2_ngrinder.yml
 ```

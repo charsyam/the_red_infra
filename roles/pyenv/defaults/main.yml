@@ -8,6 +8,19 @@ pyenv_versions:
 
 pyenv_default_version: 3.8.6
 
-pyenv_virtualenvs: []
+pyenv_virtualenvs: 
+  - name: the-red-dev
+    python_version: 3.8.6
+    packages:
+      - docker
+      - docker-compose
+      - gunicorn
 
 pyenv_virtualenv: true
+
+pyenv_default_virtualenv: the-red-dev
+
+default_pyenv_packages:
+  - docker
+  - docker-compose
+  - gunicorn

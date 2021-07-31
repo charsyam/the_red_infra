@@ -6,16 +6,10 @@
     clone: yes
     update: yes
 
-- name: Install gunicorn
-  pip:
-    name: gunicorn
-    state: present
-    executable: /usr/local/pyenv/versions/3.8.6/bin/pip3
-
 - name: Install specified python requirements in indicated (virtualenv)
   pip:
     requirements: "/home/ubuntu/geoip_{{geoip_port}}/requirements.txt"
-    executable: /usr/local/pyenv/versions/3.8.6/bin/pip3
+    executable: "{{ pip3_path }}"
 
 - name: Create Log Folder
   file:
