@@ -1,0 +1,14 @@
+---
+- name: Install Scrap Servers
+  hosts: scrap
+  become: yes
+
+  roles:
+     - { role: scrap, tags: [ 'scrap' ] }
+
+- name: Install Nginx
+  hosts: scrap
+  become: yes
+
+  roles:
+     - { role: nginx, tags: [ 'nginx' ] }
