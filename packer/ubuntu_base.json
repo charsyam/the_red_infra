@@ -1,0 +1,31 @@
+{
+  "variables": {
+    "ami_name": "the-red-base-ubuntu-20.04-image"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "source_ami": "ami-04876f29fd3a5e8ba",
+      "vpc_id": "vpc-d4a846bd",
+      "subnet_id": "subnet-b3afe1ef",
+      "security_group_id": "sg-0ce43ec5ecfa742d9",
+      "instance_type": "t3.small",
+      "ssh_interface": "public_ip",
+      "ssh_username": "ubuntu",
+      "ssh_keypair_name": "charsyam",
+      "ami_name": "the-red-base-ubuntu-20.04-image-20210801-19",
+      "ami_description": "the-red-base-ubuntu-20.04-image",
+      "ssh_private_key_file": "/home/charsyam/.ssh/the_red.pem"
+    }
+  ],
+  "provisioners": [
+     {
+        "type": "shell",
+        "inline": ["timeout 60s bash -c \"while ! [ -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting on cloud-init...'; sleep 2; done\""]
+    },
+    {
+      "type": "ansible",
+      "playbook_file": "../the_red_ami_base.yml"
+    }
+  ]
+}
