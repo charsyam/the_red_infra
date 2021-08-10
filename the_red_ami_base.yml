@@ -10,22 +10,16 @@
      - { role: prometheus_node_exporter, tags: [ 'prometheus_node_exporter' ] }
      - { role: pyenv, tags: [ 'pyenv' ] }
 
-- name: Install JVM tools with sdkman
+- name: Install Scrap Servers
   hosts: all
+  become: yes
+
   roles:
-    - role: comcast.sdkman
-      sdkman_user: ubuntu
-      sdkman_group: ubuntu
-      sdkman_auto_answer: true
-      sdkman_update: true
+     - { role: scrap, tags: [ 'scrap' ] }
 
-      sdkman_install_packages:
-        - { candidate: java, version: 11.0.11.9.1-amzn }
-        - { candidate: scala, version: 2.13.5 }
-        - { candidate: kotlin, version: 1.5.0 }
-        - { candidate: sbt, version: 1.5.2 }
-        - { candidate: maven, version: 3.8.1 }
-        - { candidate: gradle, version: 7.0.1 }
+- name: Install Nginx
+  hosts: all
+  become: yes
 
-      tags:
-        - jvm
+  roles:
+     - { role: nginx, tags: [ 'nginx' ] }

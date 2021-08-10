@@ -68,19 +68,21 @@ def delete_asg(client, asg_name, force_delete=True):
     return response
 
 
-def create_listener(client, listener_conf, lb_arn, tg_arn):
+def create_listener(client, listener_conf, lb_arn, tg_weights):
     response = client.create_listener(
         DefaultActions=[
             {
-                'TargetGroupArn': tg_arn,
                 'Type': 'forward',
+                'ForwardConfig': {
+                    'TargetGroups': tg_weights
+                }
             },
         ],
         LoadBalancerArn=lb_arn,
         Port=listener_conf["port"],
         Protocol=listener_conf["protocol"],
     )
-    return response
+    return response['Listeners']
 
 def get_listeners(client, lb_arn):
     paginator = client.get_paginator('describe_listeners')
@@ -136,7 +138,6 @@ def create_tg(client, tg_conf, vpc_id):
         kwargs["HealthCheckPath"] = tg_conf["health_check_path"]
         
     response = client.create_target_group(**kwargs)
-    print(kwargs)
     return response["TargetGroups"]
 
 

@@ -1,6 +1,6 @@
 {
   "variables": {
-    "ami_name": "the-red-base-ubuntu-20.04-image"
+    "ami_name": "the-red-scrap-green-ubuntu-20.04-image"
   },
   "builders": [
     {
@@ -8,13 +8,13 @@
       "source_ami": "ami-04876f29fd3a5e8ba",
       "vpc_id": "vpc-d4a846bd",
       "subnet_id": "subnet-b3afe1ef",
-      "security_group_id": "sg-0ce43ec5ecfa742d9",
+      "security_group_id": "sg-0d14df03af5a3b965",
       "instance_type": "t3.small",
       "ssh_interface": "public_ip",
       "ssh_username": "ubuntu",
       "ssh_keypair_name": "charsyam",
-      "ami_name": "the-red-base-ubuntu-20.04-image-20210801-19",
-      "ami_description": "the-red-base-ubuntu-20.04-image",
+      "ami_name": "the-red-scrap-green-20210806-23",
+      "ami_description": "the-red-green-ubuntu-20.04-image",
       "ssh_private_key_file": "/home/charsyam/.ssh/the_red.pem"
     }
   ],
@@ -25,6 +25,7 @@
     },
     {
       "type": "ansible",
+      "inventory_directory": "../aws",
       "playbook_file": "../the_red_ami_base.yml"
     }
   ]
