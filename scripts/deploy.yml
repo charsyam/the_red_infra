@@ -11,11 +11,16 @@
   listener_conf:
     port: 80
     protocol: HTTP
-  tg_conf:
-    name: scrap-tg
-    protocol: HTTP
-    port: 7002
-    health_check_path: /health_check
+  target_tg: scrap-tg-blue
+  tgs_conf:
+    - name: scrap-tg-blue
+      protocol: HTTP
+      port: 7002
+      health_check_path: /health_check
+    - name: scrap-tg-green
+      protocol: HTTP
+      port: 7002
+      health_check_path: /health_check
   ag_name: scrap-ag
   tpl_conf:
     name: scrap_tpl
