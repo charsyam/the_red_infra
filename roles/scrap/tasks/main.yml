@@ -1,0 +1,45 @@
+- name: Git checkout
+  become: no
+  git:
+    repo: 'https://github.com/charsyam/scrap.git'
+    dest: "/home/ubuntu/scrap_{{scrap_port}}"
+    clone: yes
+    update: yes
+
+- name: Install specified python requirements in indicated (virtualenv)
+  pip:
+    requirements: "/home/ubuntu/scrap_{{scrap_port}}/requirements.txt"
+    executable: "{{ pip3_path }}"
+
+- name: Create Log Folder
+  file:
+    path: "/home/ubuntu/scrap_{{scrap_port}}/fastapi/logs"
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+  
+- name: Add to run commands
+  template:
+    src: gunicorn_scrap.service.j2
+    dest: "/etc/systemd/system/gunicorn_scrap_{{scrap_port}}.service"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Enable gunicorn
+  systemd:
+    name: "gunicorn_scrap_{{scrap_port}}.service"
+    enabled: yes
+
+- name: Restart gunicorn
+  systemd:
+    name: "gunicorn_scrap_{{scrap_port}}.service"
+    state: restarted
+    daemon_reload: yes
+
+- name: Check Gunicorn
+  command: systemctl is-active "gunicorn_scrap_{{scrap_port}}.service"
+  changed_when: false
+
+- name: verify scrap is listening on {{scrap_port}}
+  wait_for: port={{scrap_port}} timeout=1

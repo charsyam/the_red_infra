@@ -1,0 +1,8 @@
+---
+gunicorn_path: "{{ default_gunicorn_path }}"
+scrap_app_name: "main"
+scrap_port: 7002
+worker_number: 8
+scrap_path: "/home/ubuntu/scrap_{{ scrap_port }}/fastapi/"
+pip3_path: "/usr/local/pyenv/versions/{{pyenv_default_virtualenv}}/bin/pip3"
+pyenv_default_virtualenv: the-red-dev

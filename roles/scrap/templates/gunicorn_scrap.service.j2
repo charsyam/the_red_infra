@@ -1,0 +1,23 @@
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+PIDFile=/home/ubuntu/scrap_{{scrap_port}}/fastapi/pid
+User=ubuntu
+Group=ubuntu
+WorkingDirectory={{ scrap_path }}
+ExecStart={{ gunicorn_path }}/gunicorn \
+        -k uvicorn.workers.UvicornWorker \
+        --pid {{ scrap_path }}pid \
+        --workers {{ worker_number }} \
+        --bind 0.0.0.0:{{ scrap_port }} \
+        {{scrap_app_name}}:app \
+        --access-logfile {{ scrap_path }}logs/gunicorn-access.log \
+        --error-logfile {{ scrap_path }}logs/gunicorn-error.log
+
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+
+[Install]
+WantedBy=multi-user.target
