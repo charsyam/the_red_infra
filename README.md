@@ -1,6 +1,9 @@
 # the_red_infra
 the red infra
 
+# Q/A
+* Issue 에 질문을 생성해주세요.
+
 # setup
 
 * 기본적인 테스트는 ubuntu 20.04 에서 진행되었습니다.(18.04 도 동작합니다.)
