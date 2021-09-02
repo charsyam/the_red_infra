@@ -60,3 +60,7 @@ apply ansible: ngrinder
     ansible-playbook -i aws the_red_1_jvm.yml
     ansible-playbook -i aws the_red_2_ngrinder.yml
 ```
+
+# Ansile Reference
+* Ansibel 기초 자료는 다음을 참고하세요.
+ * [https://docs.google.com/presentation/d/1I40dnYLKSM3MqlI54iWHH-CegdQWSmgDl_8m8iQFi9Q/edit?usp=sharing]
