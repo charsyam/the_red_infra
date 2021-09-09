@@ -1,14 +1,17 @@
 #!/bin/bash
 
+VERSION=1.0.1
 case "$OSTYPE" in
     darwin*) FILENAME="darwin_amd64" ;;
     *)       FILENAME="linux_amd64" ;;
 esac
 
+TERRAFORM_FILENAME=terraform_${VERSION}_${FILENAME}.zip
+TERRAFORM_URL=https://releases.hashicorp.com/terraform/${VERSION}/${TERRAFORM_FILENAME}
 mkdir tmp
 cd tmp
-wget https://releases.hashicorp.com/terraform/1.0.1/terraform_1.0.1_${FILENAME}.zip tmp/
-unzip ./terraform_1.0.1_linux_amd64.zip
-sudo cp terraform /usr/bin
+wget $TERRAFORM_URL
+unzip ./${TERRAFORM_FILENAME}
+sudo cp terraform /usr/local/bin
 cd ..
 rm -rf ./tmp
