@@ -17,7 +17,6 @@ resource "aws_spot_instance_request" "instances" {
   }
 
   //spot stuff
-  block_duration_minutes = 120
   wait_for_fulfillment   = true
   spot_type              = "one-time"
   user_data = ""
