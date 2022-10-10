@@ -1,9 +1,16 @@
 #!/bin/bash
 
-VERSION=1.0.1
+VERSION=1.3.2
+ARCH=`uname -m`
+
+case "$ARCH" in
+    arm*) EXT="arm" ;;
+    *)    EXT="amd64" ;;
+esac
+
 case "$OSTYPE" in
-    darwin*) FILENAME="darwin_amd64" ;;
-    *)       FILENAME="linux_amd64" ;;
+    darwin*) FILENAME="darwin_$EXT" ;;
+    *)       FILENAME="linux_$EXT" ;;
 esac
 
 TERRAFORM_FILENAME=terraform_${VERSION}_${FILENAME}.zip
