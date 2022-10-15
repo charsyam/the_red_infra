@@ -4,6 +4,11 @@ data "aws_vpc" "default" {
   default = true
 }
 
+#vpc id 는 aws 콘솔에서 확인이 가능합니다.
+#data "aws_vpc" "default" {
+#  id = "{여기에 생성하신 vpc_id 를 입력해주시면 됩니다.}"
+#}
+
 data "aws_subnet" "default" {
   vpc_id            = "${data.aws_vpc.default.id}"
   default_for_az    = true
