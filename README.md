@@ -20,12 +20,21 @@ the red infra
 sudo apt update
 ```
 
-* python 설치에 필요한 패키지를 설치합니다.
+* python 설치에 필요한 패키지를 설치합니다. 버전에 따라 아래 두 가지 중 선택해주세요. 
+* ubuntu 20.04 (18.04) 
 
 ```
 sudo apt-get install -y make build-essential libssl-dev zlib1g-dev \
 libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev \
 libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
+```
+
+* ubuntu 22.04
+
+```
+sudo apt-get install -y make build-essential libssl-dev zlib1g-dev \
+libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev \
+libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-openssl
 ```
 
 * the_red_infra를 git clone 받고 ./install_pyenv.sh를 실행합니다. bash를 쓰시면 source ~/.bashrc, zsh를 쓰시면 source ~/.zshrc
